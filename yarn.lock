@@ -11559,3 +11559,8 @@ yargs@^3.10.0:
     string-width "^1.0.1"
     window-size "^0.1.4"
     y18n "^3.2.0"
+
+zinggrid@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/zinggrid/-/zinggrid-1.1.3.tgz#06794c92dbd32770ac19c990bfab9bc92effbd19"
+  integrity sha512-gf3IYkjHG7Yv968xINRbue0urJYnW6eBD+iIbUCzlzN49Gx2aPKrNpWq/Q3PqXqqapM0J5letslL9i8aaQMxIQ==

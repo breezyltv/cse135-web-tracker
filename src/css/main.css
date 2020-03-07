@@ -265,18 +265,20 @@ code, output, pre{
 	width: 100%;
 	font-family: oswald;
 	font-weight: 300;
-	font-size: 25pt;
+	font-size: 30pt;
 	text-transform: uppercase;
 	text-align: center;
 }
 
 #nav-list h3 {
-	height: 30px;
+	height: 70px;
 	line-height: 1;
+	font-weight: bold;
+	font-size: 30pt;
 }
 
 #nav-list a:link{
-	color: #130f40;
+	color: #f6b93b;
 }
 #nav-list a:hover{
 	color: #f5636c;
@@ -778,7 +780,79 @@ p {
   text-align: center;
 }
 
+#alert-box{
+	width: 50%;
+	height: 50px;
+	background-color: #ea4c88;
+}
 
+#alert-box span{
+	font-size:15pt;
+	color: #f2f2f2;
+}
+
+zing-grid {
+	max-width: 1000px;
+	margin: 30px auto 0 auto;
+	font-size: 14px;
+	font-family: 'Chakra Petch', sans-serif;
+	background: #141618;
+	color: #c7e5fa;
+	border-color: #003450;
+	--theme-color-primary: #005481;
+	--zg-head-cell-background_sorted: #003450;
+	--zg-cell-background_sorted: #1b252d;
+	--zg-select-arrow-color: #ffffff;
+	--zg-head-cell-icon-color_sorted: #ffffff;
+	--zg-select-background: #021b2a;
+	--zg-select-text-background: #021b2a;
+	--zg-select-color: white;
+  }
+  
+  zg-caption {
+	background: #000f17;
+	font-size: 25px;
+  }
+  
+  zg-caption i {
+	max-width: 15px;
+	margin-right: 15px;
+  }
+  
+  zg-head {
+	border-color: #003450;
+  }
+  
+  zg-head-cell {
+	background: #021b2a;
+	color: #005481;
+	font-weight: bold;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+  }
+  
+  zg-head-cell_sorted zg-icon {
+	max-width: 15px;
+	color: #ffffff;
+  }
+  
+  zg-column[index="url"] {
+	background: #000f17;
+	width: 25%;
+  }
+  
+  zg-row {
+	border-color: #003450;
+  }
+  
+  zg-pager,
+  zg-watermark {
+	background: #021b2a;
+	color: white;
+	border-color: #003450;
+  }
+  
 #footer {
     position: absolute;
     bottom: 0;

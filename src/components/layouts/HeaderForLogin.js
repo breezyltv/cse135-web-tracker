@@ -1,9 +1,9 @@
 import React, {userContext} from 'react';
 import { Link } from 'react-router-dom';
-import firebaseAuth from '../../firebaseconfig';
 import {UserContext} from '../../UserContext';
 
-function Header() {
+function HeaderForLogin() {
+
   return (
     <div id="header-idx">
     	<div id="header-idx-inner">
@@ -13,13 +13,13 @@ function Header() {
 
     	<div className="nav-home">
     			<ul className="menu">
-    				<li className="menu-item"><a href="/">Home</a></li>
+    				<li className="menu-item"><a href="/dashboard">Dashboard</a></li>
     				<li><a href="/images">Images</a></li>
     				<li><a href="/form">Form</a></li>
     				<li><a href="/table">Table</a></li>
     				<li><a href="/external">Externals</a></li>
     				<li><a href="/showdb">Show DB</a></li>
-            <li id="current-user"><a href="/login">Login</a></li>
+            <li id="current-user"><a href="/logout">Logout</a></li>
     			</ul>
     		</div>
     		<div className="clear"></div>
@@ -28,4 +28,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderForLogin;

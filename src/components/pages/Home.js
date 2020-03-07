@@ -4,9 +4,9 @@ class Home extends Component {
 render() {
   return (
     <div id="content-home">
-    	<div class="text-home"><h2>Homework 3</h2></div>
-    	<div class="home-dash"></div>
-    	<div class="clear"></div>
+    	<div className="text-home"><h2>Homework 4</h2></div>
+    	<div className="home-dash"></div>
+    	<div className="clear"></div>
     	<p><i>CSE 135 Winter 2020 UCSD</i></p>
     	<code>This is code tag:
     			alert( 'Hello, world!' );
