@@ -15,8 +15,8 @@ Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 -   I use firebase authentication to sign in a user with an email address and password. 
-    First of all, I added firebase into my react app
-    In the Login.js at src/components/pages/Login.js
+    First of all, I added firebase into my react app.<br />
+    In the Login.js at src/components/pages/Login.js<br />
     it's basic that pass email and password value into signInWithEmailAndPassword function below:<br />
 
     ```
