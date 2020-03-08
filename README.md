@@ -19,7 +19,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
     In the Login.js at src/components/pages/Login.js
     it's basic that pass email and password value into signInWithEmailAndPassword function below:<br />
 
-    ```firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    ```
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
     
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -27,8 +28,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
     });```
 
 -   To login, please go to https://cse135-hw4-eb854.firebaseapp.com/login and enter email and password below<br />
-    ```Email: vtl017@ucsd.edu
-    password: qwerty```
+    ```
+    Email: vtl017@ucsd.edu
+    password: qwerty
+    ```
 
 -   Diagram that shows how your PoC examples work together including their routes:<br />
     https://1drv.ms/u/s!AlOx-S3rIFNWhNRGeZ86-oSG4j8Epw
