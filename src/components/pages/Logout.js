@@ -5,17 +5,25 @@ import { withRouter } from 'react-router';
 class Logout extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isLogout: '',
+    }
+
     this.btSignOut = this.logout.bind(this);
 
-    if (props.user) {
-      alert("You can't login if you are logged in!")
-      //props.history.push('/ticket-list')
-    }
+  
   }
 
   logout(){
-    this.props.history.push('/login');
-    firebaseAuth.auth().signOut();
+
+    firebaseAuth.auth().signOut().then((u) => {
+      // Sign-out successful.
+      this.props.history.push('/login');
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error);    
+    });
   }
 
 

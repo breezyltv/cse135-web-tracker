@@ -275,6 +275,7 @@ code, output, pre{
 	line-height: 1;
 	font-weight: bold;
 	font-size: 30pt;
+	
 }
 
 #nav-list a:link{
@@ -808,7 +809,9 @@ zing-grid {
 	--zg-select-text-background: #021b2a;
 	--zg-select-color: white;
   }
-  
+  zing-grid input{
+	  color: #565656;
+  }
   zg-caption {
 	background: #000f17;
 	font-size: 25px;
@@ -852,6 +855,8 @@ zing-grid {
 	color: white;
 	border-color: #003450;
   }
+
+
   
 #footer {
     position: absolute;

@@ -29,6 +29,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      
     }
   }
 
@@ -51,6 +52,7 @@ class App extends Component {
     });
   }
 
+
   render() {
 
     return (
@@ -62,7 +64,7 @@ class App extends Component {
             <Route exact path="/" component={this.state.user ? Dashboard : Home}  />
             <Route exact path="/dashboard" component={this.state.user ? Dashboard : Login}  />
             <Route exact path="/reports/speed" component={this.state.user ? Speed : Login}  />
-            <Route exact path="/reports/browsers" component={this.state.user ? Browers : Login}  />
+            <Route exact path="/reports/browsers"  component={this.state.user ? Browers : Login}  />
 
             <Route exact path={this.state.user ? "/logout" : "/login" } component={this.state.user ? Logout : Login} />
             <Route exact path="/images" component={Images}  />

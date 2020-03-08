@@ -27,7 +27,10 @@ componentDidMount() {
         {
           "breed": "Pomeranian",
           "name": "Floof"
-        }
+        },
+        { "breed": "Pomeranian", "name": "Koda"},
+        { "breed": "Cane Corso", "name": "Ziva"},
+        { "breed": "Dachshund", "name": "Rick"}
       ]
     }
   });
@@ -38,10 +41,13 @@ componentDidMount() {
 render() {
   return (
     <div id="content-image">
-        <div className="text-home"><h2>Welcome you to Speed</h2></div>
+        <div className="text-home"><h2>Welcome you to Grid !</h2></div>
         <zing-grid id="helloWorld"
         sort
-        search 
+        search
+        pager
+        page-size="5"
+        page-size-options="2,5,15" 
         caption="Hello Doggos" data={JSON.stringify(this.state.dogs)} loading></zing-grid>
         
 
