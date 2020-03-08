@@ -43,8 +43,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 -   Discussion of the chart library you used:<br />
     I use Chartjs from https://www.chartjs.org/, it has a version that is react-chartjs-2,
-     so it will work on my react app, you can see the demonstration of chart at /reports/browsers
-    This chart library have may chart style like column, pie, line. 
+     so it will work on my react app, you can see the demonstration of chart at /reports/browsers<br />
+    This chart library have many chart style like column, pie, line. 
     I can edit the color chart, title or enable the tooltip.
 
 -   Diagram and wireframes to implement for final project:<br />
