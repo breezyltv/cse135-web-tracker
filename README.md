@@ -50,5 +50,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 -   Diagram and wireframes to implement for final project:<br />
     Two PDF named as architecture_hw4.pdf and wireframe.pdf in this folder<br />
-    https://github.com/breezyltv/cse135-hw4/blob/master/architecture_hw4.pdf
+    https://github.com/breezyltv/cse135-hw4/blob/master/architecture_hw4.pdf <br />
     https://github.com/breezyltv/cse135-hw4/blob/master/wireframe.pdf
