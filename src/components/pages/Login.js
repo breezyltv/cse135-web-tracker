@@ -16,7 +16,7 @@ class Login extends Component {
 
   }
 
- 
+
   login(event){
     event.preventDefault();
     console.log("login with " +  this.state.email);
@@ -30,8 +30,7 @@ class Login extends Component {
       console.log(errorCode);
       var errorMessage = error.message;
       alert(errorMessage);
-      
-      // ...
+
     });
   }
 
