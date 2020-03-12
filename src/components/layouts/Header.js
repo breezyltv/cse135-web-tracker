@@ -1,9 +1,13 @@
-import React, {userContext} from 'react';
-import { Link } from 'react-router-dom';
-import firebaseAuth from '../../firebaseconfig';
-import {UserContext} from '../../UserContext';
+import React from 'react';
+import LogoutLink from './LogoutLink';
+import LoginLink from './LoginLink';
+import { connect } from 'react-redux';
 
-function Header() {
+function Header(props) {
+
+  const {auth} = props;
+  const userNavLink = auth.uid ? <LogoutLink /> : <LoginLink />
+
   return (
     <div id="header-idx">
     	<div id="header-idx-inner">
@@ -11,21 +15,18 @@ function Header() {
     		<h1 className="title-home"><a href="/" rel="home">CSE135</a></h1>
     	</div>
 
-    	<div className="nav-home">
-    			<ul className="menu">
-    				<li className="menu-item"><a href="/">Home</a></li>
-    				<li><a href="/images">Images</a></li>
-    				<li><a href="/form">Form</a></li>
-    				<li><a href="/table">Table</a></li>
-    				<li><a href="/external">Externals</a></li>
-    				<li><a href="/showdb">Show DB</a></li>
-            <li id="current-user"><a href="/login">Login</a></li>
-    			</ul>
-    		</div>
-    		<div className="clear"></div>
+		    {userNavLink}
+
+    	<div className="clear"></div>
     	</div>
     </div>
   );
 }
 
-export default Header;
+const mapStateToProps = (state) =>{
+  return {
+    auth: state.firebase.auth
+  };
+}
+
+export default connect(mapStateToProps)(Header);

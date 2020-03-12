@@ -51,7 +51,7 @@ a {
 }
 
 a:link {color: #555;}
-a:visited {color: #079992;}
+a:visited {color: #1B9CFC;}
 
 @font-face {
 	font-family: 'Oswald';
@@ -191,7 +191,7 @@ body {
 }
 
 .nav-home .menu a:link {color: #333;}
-.nav-home .menu a:visited {color: #58B19F}
+.nav-home .menu a:visited {color: #1B9CFC}
 
 .nav-home .menu a:hover{color: #f5636c}
 
@@ -275,7 +275,7 @@ code, output, pre{
 	line-height: 1;
 	font-weight: bold;
 	font-size: 30pt;
-	
+
 }
 
 #nav-list a:link{
@@ -779,17 +779,32 @@ p {
 
 .text--center {
   text-align: center;
+	font-size: 11pt;
+
 }
 
 #alert-box{
-	width: 50%;
-	height: 50px;
-	background-color: #ea4c88;
+	min-height: 35px;
+	padding: 10px;
+	width: 100%;
+	background-color: #ED4C67;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 10px;
 }
 
 #alert-box span{
-	font-size:15pt;
+	font-size:10pt;
 	color: #f2f2f2;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.form .alert-text {
+	margin-left: 20px;
+	color: #FFC312;
+	font-size: 10pt;
+	margin-top: 0;
 }
 
 zing-grid {
@@ -816,16 +831,16 @@ zing-grid {
 	background: #000f17;
 	font-size: 25px;
   }
-  
+
   zg-caption i {
 	max-width: 15px;
 	margin-right: 15px;
   }
-  
+
   zg-head {
 	border-color: #003450;
   }
-  
+
   zg-head-cell {
 	background: #021b2a;
 	color: #005481;
@@ -834,21 +849,21 @@ zing-grid {
 	text-transform: uppercase;
 	letter-spacing: .5px;
   }
-  
+
   zg-head-cell_sorted zg-icon {
 	max-width: 15px;
 	color: #ffffff;
   }
-  
+
   zg-column[index="url"] {
 	background: #000f17;
 	width: 25%;
   }
-  
+
   zg-row {
 	border-color: #003450;
   }
-  
+
   zg-pager,
   zg-watermark {
 	background: #021b2a;
@@ -857,7 +872,7 @@ zing-grid {
   }
 
 
-  
+
 #footer {
     position: absolute;
     bottom: 0;

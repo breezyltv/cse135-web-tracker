@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {UserContext} from '../../UserContext';
 
 class NotFoundPage extends Component {
   render() {

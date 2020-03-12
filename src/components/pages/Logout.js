@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
-import firebaseAuth from '../../firebaseconfig';
-import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import {logout} from '../../actions/authActions';
+import { Redirect } from 'react-router-dom'
 
 class Logout extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isLogout: '',
-    }
-
-    this.btSignOut = this.logout.bind(this);
-
-  
+    this.btSignOut = this.btLogout.bind(this);
   }
 
-  logout(){
-
-    firebaseAuth.auth().signOut().then((u) => {
-      // Sign-out successful.
-      this.props.history.push('/login');
-    }).catch(function(error) {
-      // An error happened.
-      console.log(error);    
-    });
+  btLogout(){
+    this.props.logout();
   }
 
+  render () {
 
-render () {
-
+  const { authError } = this.props;
 
   return (
     <div className="grid">
@@ -46,4 +34,17 @@ render () {
   );
 }
 }
-export default withRouter(Logout);
+
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    logout:() => dispatch(logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import firebaseAuth from '../../firebaseconfig';
-import { withRouter } from 'react-router';
+import { Transition } from 'react-transition-group';
+import { connect } from 'react-redux';
+import { login } from '../../actions/authActions';
+import { Redirect } from 'react-router-dom';
+
 class Login extends Component {
 
   constructor(props) {
@@ -10,28 +13,16 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      error: ''
     }
 
-
   }
-
 
   login(event){
     event.preventDefault();
     console.log("login with " +  this.state.email);
+    //dispatch email and password
+    this.props.login(this.state);
 
-    firebaseAuth.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then((u)=>{
-      this.props.history.push('/dashboard');
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      console.log(errorCode);
-      var errorMessage = error.message;
-      alert(errorMessage);
-
-    });
   }
 
   handleChange(event) {
@@ -39,13 +30,17 @@ class Login extends Component {
   }
 
 render() {
+
+  const {authError} = this.props;
+
+
   return (
     <div className="grid">
         <h1>Login!</h1>
     <br></br>
       <div className="form login">
 
-      {/* <div id="alert-box"><span>{this.props.email}</span></div> */}
+        { authError ? <div id="alert-box"><span>{authError}</span></div> : null}
 
         <div className="form__field">
           <label htmlFor="login__username"><svg className="icon"></svg><span className="hidden">Username</span></label>
@@ -63,10 +58,23 @@ render() {
 
       </div>
 
-      <p className="text--center">Not a member? <a href="#">Sign up now</a> <svg className="icon"></svg></p>
+      <p className="text--center">Not a member? <a href="/signup">Sign up now</a> <svg className="icon"></svg></p>
 
     </div>
   );
 }
 }
-export default withRouter(Login);
+
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (creds) => dispatch(login(creds))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

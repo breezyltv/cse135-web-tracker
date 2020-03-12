@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import F1 from './../../images/f1.jpg';
 import F2 from './../../images/f2.png';
 import White_dog from './../../images/white_dog.gif';
-import WEBF4 from './../../images/f4.webp';
 import OWL from './../../images/owl.svg';
 import DOG from './../../images/dog.gif';
-import ANIPNG from './../../images/aniPNG.png';
 
 class Images extends Component {
 render() {
@@ -34,8 +31,6 @@ render() {
     				<h5><a href="#">Animated GIF</a></h5>
     			</div>
     		</div>
-
-
 
     </div>
   );
