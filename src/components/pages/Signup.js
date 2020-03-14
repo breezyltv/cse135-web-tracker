@@ -103,33 +103,33 @@ render() {
       <div className="form login">
 
         { authError ? <div id="alert-box"><span>{authError}</span></div> : null}
-        
+
         <div className="form__field">
-          <label htmlFor="login__username"><svg className="icon"></svg><span className="hidden">Username</span></label>
+          <label htmlFor="login__username"><span>Email:</span></label>
           <input id="login__username" value={this.state.email} onChange={this.handleChange} type="text" name="email" className="form__input" placeholder="email" required></input>
         </div>
         <span className="alert-text">{this.state.emailErr}</span>
 
         <div className="form__field">
-          <label htmlFor="login__firstname"><svg className="icon"></svg><span className="hidden">Username</span></label>
+          <label htmlFor="login__firstname"><span>Firstname:</span></label>
           <input id="login__firstname" value={this.state.firstname} onChange={this.handleChange} type="text" name="firstname" className="form__input" placeholder="First Name" required></input>
         </div>
         <span className="alert-text">{this.state.firstErr}</span>
 
         <div className="form__field">
-          <label htmlFor="login__lastname"><svg className="icon"></svg><span className="hidden">Username</span></label>
+          <label htmlFor="login__lastname"><span>Lastname:</span></label>
           <input id="login__lastname" value={this.state.lastname} onChange={this.handleChange} type="text" name="lastname" className="form__input" placeholder="Last Name" required></input>
         </div>
         <span className="alert-text">{this.state.lastErr}</span>
 
         <div className="form__field">
-          <label htmlFor="login__password"><svg className="icon"></svg><span className="hidden">Password</span></label>
+          <label htmlFor="login__password"><span>Password:</span></label>
           <input id="login__password" value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form__input" placeholder="Password" required></input>
         </div>
         <span className="alert-text">{this.state.passwordErr}</span>
 
         <div className="form__field">
-          <label htmlFor="login__repeat"><svg className="icon"></svg><span className="hidden">Password</span></label>
+          <label htmlFor="login__repeat"><span>Repeat Password:</span></label>
           <input id="login__repeat" value={this.state.repeat_password} onChange={this.handleChange} type="password" name="repeat_password" className="form__input" placeholder="Repeat Password" required></input>
         </div>
         <span className="alert-text">{this.state.repeat_password_err}</span>

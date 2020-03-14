@@ -38,7 +38,8 @@ export const signUp = (credentials) => {
     let userData = {
       firstname: credentials.firstname,
       lastname:   credentials.lastname,
-      email: credentials.email
+      email: credentials.email,
+      role: "viewer"
     };
 
     firebase.auth().createUserWithEmailAndPassword(
@@ -46,7 +47,9 @@ export const signUp = (credentials) => {
       credentials.password
     ).then((res)=>{
       //save user info to firestore
-      return firestore.collection('user').doc(res.user.uid).set(userData)
+      return firestore.collection('users').doc(res.user.uid).set(
+        {user_info: userData}
+      )
 
     }).then(() =>{
       browserHistory.push('/dashboard');

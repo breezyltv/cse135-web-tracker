@@ -6,6 +6,11 @@ import Footer from './components/layouts/Footer';
 
 // React Router Import
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {createDataNoUser, updateData} from './actions/trackerAction'
+import {reactLocalStorage} from 'reactjs-localstorage';
+import Cookies from 'js-cookie';
+import browserHistory from './history';
 
 // Import Pages
 import Home from './components/pages/Home';
@@ -21,6 +26,8 @@ import Form from './components/pages/Form';
 import Externals from './components/pages/Externals';
 import Showdb from './components/pages/Showdb';
 import Signup from './components/pages/Signup';
+import Account from './components/pages/Account';
+import {getStaticData, getPerformanceData} from './tracker';
 
 class App extends Component {
   constructor(props){
@@ -29,57 +36,80 @@ class App extends Component {
       user: {},
     }
     this.handleScroll = this.handleScroll.bind(this);
+    this.beforeunload = this.beforeunload.bind(this);
   }
 
   componentDidMount(){
+    console.log('tracker is: ' + Cookies.get('tracker'))
+
     this.authListener();
+
+
     window.addEventListener('scroll', this.handleScroll);
-    console.log(this.getStaticData())
+    window.addEventListener('beforeunload', this.beforeunload);
+
+
+
+    if(!Cookies.get('tracker')){
+      this.props.createDataNoUser(getStaticData());
+    }else{
+      let performance = reactLocalStorage.getObject('performance');
+
+      console.log(performance);
+
+      if(performance){
+        const { auth } = this.props
+        var id;
+        var logged;
+        if(auth.uid){
+          id = auth.uid;
+          logged = true;
+        }else{
+          id = Cookies.get('tracker');
+          logged = false;
+        }
+
+        console.log('id to update: ' + id +" Login Status: " + logged);
+
+        this.props.updateData(
+          id,
+          performance['page_name'],
+          performance['static_data'],
+          performance['performance_data'],
+          logged
+        );
+      }
+    }
+
   }
 
   componentWillUnmount() {
+
+    window.removeEventListener('beforeunload', this.beforeunload);
     window.removeEventListener('scroll', this.handleScroll);
+
   }
+
+  beforeunload(e) {
+
+    console.log('Saving data before changing route....')
+    var page_name = browserHistory.location.pathname.replace(/^\/|\/$/g, '');
+    let performance = {
+      page_name: page_name,
+      static_data: getStaticData(),
+      performance_data: getPerformanceData(),
+    }
+    reactLocalStorage.setObject('performance', performance);
+
+  }
+
+
   handleScroll(e) {
     console.log('scroll event');
-    console.log(e);
+    //console.log(e);
   }
 
-  getStaticData(){
-    console.log(navigator.userAgent)
-    var cookie = navigator.cookieEnabled;
 
-    var checkJSEnabled = navigator.javaEnabled ? "true" : "false";
-    
-    var con = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-
-    var con_type = con.effectiveType;
-
-    var img_check = document.getElementById('footer') != null ? false : true;
-
-    var checkCSS;
-
-    var avai_height = window.screen.height;
-    var avai_width = window.screen.width;
-
-    var window_height = window.innerHeight;
-    var window_width = window.innerWidth;
-
-    let static_data = {
-        "user_agent": navigator.userAgent,
-        "language": navigator.language,
-        "cookie": cookie,
-        "check_js": checkJSEnabled,
-        "image_On": img_check,
-        "check_css": checkCSS,
-        "connection": con_type,
-        "avai_height": avai_height,
-        "avai_width": avai_width,
-        "window_height": window_height,
-        "window_width": window_width
-    }
-    return static_data;
-  }
 
   authListener(){
     firebaseAuth.auth().onAuthStateChanged((user) => {
@@ -96,7 +126,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div>
           <Header />
@@ -113,7 +142,7 @@ class App extends Component {
             <Route exact path="/table" component={Table_and_lists}  />
             <Route exact path="/external" component={Externals}  />
             <Route exact path="/showdb" component={Showdb}  />
-
+            <Route exact path="/account" component={this.state.user ? Account : Login}  />
             <Route exact path="/signup" component={Signup}  />
 
             <Route component={NotFoundPage} />
@@ -124,4 +153,21 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+const mapStateToProps = (state) =>{
+  return {
+    auth: state.firebase.auth
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createDataNoUser: (data) => dispatch(createDataNoUser(data)),
+    updateData: (id, page_name, static_data, performance_data, logged) => dispatch(
+      updateData(id, page_name, static_data, performance_data, logged)
+    )
+  }
+}
+
+
+export default connect(mapStateToProps ,mapDispatchToProps)(App);
