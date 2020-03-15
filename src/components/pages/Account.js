@@ -33,10 +33,10 @@ render() {
     return <Redirect to="/login" />
   }
 
-  var lastname;
-  var firstname;
-  var email;
-  var role;
+  var lastname = '';
+  var firstname = '';
+  var email = '';
+  var role = '';
   if(userData){
     firstname = userData.user_info.firstname;
     lastname = userData.user_info.lastname;
@@ -86,8 +86,6 @@ render() {
 }
 }
 const mapStateToProps = (state) =>{
-  console.log(state)
-
   return {
     auth: state.firebase.auth,
     userData: state.firestore.ordered.users && state.firestore.ordered.users[0]

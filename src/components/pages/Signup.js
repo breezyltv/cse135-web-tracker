@@ -55,11 +55,11 @@ class Signup extends Component {
   validateForm = () =>{
     let isError = false;
     const errors = {};
-    if(this.state.firstname.length == 0){
+    if(this.state.firstname.length === 0){
       isError = true;
       errors.firstErr = "Username cannot be blank!";
     }
-    if(this.state.lastname.length == 0){
+    if(this.state.lastname.length === 0){
       isError = true;
       errors.lastErr = "Lastname cannot be blank!";
     }
@@ -72,7 +72,7 @@ class Signup extends Component {
       errors.passwordErr = "Password needs to be at least 5 characters long";
     }
 
-    if(this.state.password != this.state.repeat_password){
+    if(this.state.password !== this.state.repeat_password){
       isError = true;
       errors.repeat_password_err = "Password doesn't match!";
     }

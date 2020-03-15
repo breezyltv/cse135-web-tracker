@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {logout} from '../../actions/authActions';
-import { Redirect } from 'react-router-dom'
 
 class Logout extends Component {
   constructor(props) {
@@ -23,6 +22,8 @@ class Logout extends Component {
         <h1>Please click the button to Sign out!</h1>
     <br></br>
       <div className="form login">
+        
+        { authError ? <div id="alert-box"><span>{authError}</span></div> : null}
 
         <div className="form__field">
           <input onClick={this.btSignOut} type="submit" value="Sign Out"></input>

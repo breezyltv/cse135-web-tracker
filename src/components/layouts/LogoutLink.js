@@ -28,8 +28,6 @@ function LogoutLink(props) {
 }
 
 const mapStateToProps = (state) =>{
-  console.log(state)
-
   return {
     auth: state.firebase.auth,
     userData: state.firestore.ordered.users && state.firestore.ordered.users[0]

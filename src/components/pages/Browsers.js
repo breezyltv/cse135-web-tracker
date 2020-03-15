@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import {Bar, Line, Pie} from 'react-chartjs-2';
-import { white } from 'ansi-colors';
+import { Redirect } from 'react-router-dom';
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase';
+import {createTableStaticData} from '../../tracker';
 
 class Browers extends Component {
 
@@ -8,7 +12,8 @@ class Browers extends Component {
     super(props);
     this.state = {
       chartData:{},
-      location: "Massachusetts"
+      location: "Massachusetts",
+
     }
   }
 
@@ -21,9 +26,18 @@ class Browers extends Component {
 
   componentDidMount(){
     this.getChartData();
+    this.getStaticData();
+  }
+
+  getStaticData(){
+    const { staticData} = this.props;
+    //console.log(staticData)
+    // document.getElementById('my-static-data').innerHTML
+    // = createTableStaticData(staticData.static_data);
   }
 
   getChartData(){
+
     // Ajax calls here
     this.setState({
       chartData:{
@@ -50,22 +64,48 @@ class Browers extends Component {
             ]
           }
         ]
-        
+
       }
     });
   }
 
 
 render() {
+
+  const {auth, userData, staticData} = this.props;
+
+  if(!auth.uid){
+    return <Redirect to="/login" />
+  }
+
+  var brower_info = {};
+  if(staticData){
+    brower_info = staticData.static_data;
+  }
+
+  var chartData = {};
+  var labels = [];
+  var data = [];
+  if(userData){
+    console.log(userData)
+    Object.keys(userData).forEach((key) => {
+
+        //labels.push(userData[key].dynamic_data.);
+    });
+  }
+
+  //console.log(labels)
+
   return (
     <div id="content-image">
-        <div className="text-home"><h2>Welcome you to Browers</h2></div>
+        <div className="text-home"><h2>Browers Information</h2></div>
+
         <Bar
           data={this.state.chartData}
           options={{
             title:{
               display:this.props.displayTitle,
-              text:'Largest Cities In '+this.state.location,
+              text:'Page: ',
               fontSize:25,
               fontColor: '#333'
             },
@@ -76,40 +116,27 @@ render() {
           }}
         />
 
-        <Line
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:'Largest Cities In '+this.state.location,
-              fontSize:25,
-              fontColor: '#333'
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        />
+      <div dangerouslySetInnerHTML={{__html: createTableStaticData(brower_info)}} />
 
-        <Pie
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:'Largest Cities In '+this.state.location,
-              fontSize:25,
-              fontColor: '#333'
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        />
 
     </div>
   );
 }
 }
-export default Browers;
+const mapStateToProps = (state, props) =>{
+  //console.log(state)
+  return {
+    auth: state.firebase.auth,
+    userData: state.firestore.ordered[`${props.uid}-dynamic_data`],
+    staticData: state.firestore.ordered.users && state.firestore.ordered.users[0]
+  };
+}
+
+
+export default compose(
+ connect(mapStateToProps),
+ firestoreConnect((props) => [
+   { collection: 'users', doc: props.auth.uid,
+     subcollections: [{ collection: "dynamic_data" }], storeAs: `${props.uid}-dynamic_data` }
+ ])
+) (Browers);

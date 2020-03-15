@@ -14,9 +14,12 @@ const trackerReducer = (state = initState, action) => {
     case 'UPDATE_DATA_ERROR':
       console.log('update project error');
       return state;
-    case 'GET_DATA_ERROR':
-      console.log('update project error');
+    case 'UPDATE_DYNAMIC_DATA_SUCCESS':
+      console.log('update dynamic data success');
       return state;
+      case 'UPDATE_DYNAMIC_DATA_ERROR':
+        console.log('update dynamic data error');
+        return state;
     default:
       return state;
   }

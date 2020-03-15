@@ -34,9 +34,17 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      click: 0,
+      mouseover: 0,
+      keydown: 0,
+      scroll: 0,
+      beforeunload: 0
     }
     this.handleScroll = this.handleScroll.bind(this);
     this.beforeunload = this.beforeunload.bind(this);
+    this.click = this.click.bind(this);
+    this.mouseover = this.mouseover.bind(this);
+
   }
 
   componentDidMount(){
@@ -44,17 +52,17 @@ class App extends Component {
 
     this.authListener();
 
-
+    // addEventListener
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('beforeunload', this.beforeunload);
-
+    window.addEventListener('click', this.click);
+    window.addEventListener('mouseover', this.mouseover);
 
 
     if(!Cookies.get('tracker')){
       this.props.createDataNoUser(getStaticData());
     }else{
       let performance = reactLocalStorage.getObject('performance');
-
       console.log(performance);
 
       if(performance){
@@ -71,41 +79,105 @@ class App extends Component {
 
         console.log('id to update: ' + id +" Login Status: " + logged);
 
-        this.props.updateData(
-          id,
-          performance['page_name'],
-          performance['static_data'],
-          performance['performance_data'],
-          logged
-        );
+        //set dynamic data to state
+        var page_name = performance['page_name'];
+        var dynamic_data;
+        dynamic_data = reactLocalStorage.getObject(page_name);
+        //console.log(dynamic_data)
+        if(dynamic_data){
+          this.setState({mouseover: dynamic_data.mouseover})
+          this.setState({click: dynamic_data.click})
+          this.setState({scroll: dynamic_data.scroll})
+          this.setState({keydown: dynamic_data.keydown})
+          this.setState({beforeunload: dynamic_data.beforeunload})
+        }else {
+          dynamic_data = {
+            page: page_name,
+            click: this.state.click,
+            mouseover: this.state.mouseover,
+            keydown: this.state.keydown,
+            scroll: this.state.scroll,
+            beforeunload: this.state.beforeunload
+          };
+        }
+
+        //Call to uodate
+        // this.props.updateData(
+        //   id,
+        //   performance['page_name'],
+        //   performance['static_data'],
+        //   performance['performance_data'],
+        //   dynamic_data,
+        //   logged
+        // );
       }
     }
 
   }
+  componentWillMount() {
+       document.addEventListener("keydown", this.onKeyPressed.bind(this));
+   }
 
   componentWillUnmount() {
 
     window.removeEventListener('beforeunload', this.beforeunload);
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('click', this.click);
+    window.removeEventListener('mouseover', this.mouseover);
+    window.removeEventListener('keydown', this.onKeyPressed);
 
   }
 
+  mouseover(e){
+    this.setState({mouseover: this.state.mouseover+1});
+
+  }
+
+  onKeyPressed(e){
+    this.setState({keydown: this.state.keydown+1});
+  }
+
+  click(e){
+    this.setState({click: this.state.click+1});
+  }
+
   beforeunload(e) {
+    this.setState({beforeunload: this.state.beforeunload+1});
 
     console.log('Saving data before changing route....')
     var page_name = browserHistory.location.pathname.replace(/^\/|\/$/g, '');
+    const { auth } = this.props
+    if(page_name === ""){
+      if(auth.uid){
+          page_name = 'dashboard';
+      }else{
+          page_name = 'index';
+      }
+    }
     let performance = {
       page_name: page_name,
       static_data: getStaticData(),
-      performance_data: getPerformanceData(),
+      performance_data: getPerformanceData(page_name),
     }
+
     reactLocalStorage.setObject('performance', performance);
+
+    var dynamic_data = {
+      page: page_name,
+      click: this.state.click,
+      mouseover: this.state.mouseover,
+      keydown: this.state.keydown,
+      scroll: this.state.scroll,
+      beforeunload: this.state.beforeunload
+    };
+
+    reactLocalStorage.setObject(page_name, dynamic_data);
 
   }
 
 
   handleScroll(e) {
-    console.log('scroll event');
+    this.setState({scroll: this.state.scroll+1});
     //console.log(e);
   }
 
@@ -142,7 +214,7 @@ class App extends Component {
             <Route exact path="/table" component={Table_and_lists}  />
             <Route exact path="/external" component={Externals}  />
             <Route exact path="/showdb" component={Showdb}  />
-            <Route exact path="/account" component={this.state.user ? Account : Login}  />
+            <Route exact path="/account" component={Account}  />
             <Route exact path="/signup" component={Signup}  />
 
             <Route component={NotFoundPage} />
@@ -163,8 +235,8 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) => {
   return {
     createDataNoUser: (data) => dispatch(createDataNoUser(data)),
-    updateData: (id, page_name, static_data, performance_data, logged) => dispatch(
-      updateData(id, page_name, static_data, performance_data, logged)
+    updateData: (id, page_name, static_data, performance_data, dynamic_data, logged) => dispatch(
+      updateData(id, page_name, static_data, performance_data, dynamic_data, logged)
     )
   }
 }

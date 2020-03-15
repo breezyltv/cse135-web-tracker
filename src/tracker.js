@@ -34,7 +34,7 @@ export const getStaticData = () =>{
 }
 
 
-export const getPerformanceData = () =>{
+export const getPerformanceData = (page_name) =>{
 
     var pt = window.performance.timing;
     var start_time = pt.responseEnd;
@@ -42,10 +42,11 @@ export const getPerformanceData = () =>{
     var load_time = end_time - start_time;
 
     var performance_data = {
+        "page" : page_name,
         "start": start_time,
         "stop": end_time,
         "load_time": load_time,
-        "pt": pt,
+        "timing": pt,
     }
     return performance_data;
 }
@@ -55,7 +56,7 @@ export const createTableStaticData = (data) => {
 
     var table = "<table><caption>Static Data</caption><thead>";
     table += "<tr><th>&nbsp;</th><th>Data</th></tr></thead><tbody>";
-    Object.keys(data).map(function(key) {
+    Object.keys(data).forEach(function(key) {
         table += "<tr><th>"+ key.toUpperCase() +"</th>";
         table += "<td>"+ data[key] +"</td></tr>";
     });
@@ -71,7 +72,7 @@ export const createTablePerformanceData = (data, table_name) =>{
       table = "<table><caption>"+table_name+"</caption><thead>";
       table += "<tr><th>&nbsp;</th><th>Data</th></tr></thead><tbody>";
       Object.keys(data).forEach(function(key) {
-          if(key != "pt"){
+          if(key !== "timing"){
               table += "<tr><th>"+ key.toUpperCase() +"</th>";
               table += "<td>"+ data[key] +"m/s</td></tr>";
           }

@@ -56,7 +56,7 @@ export const signUp = (credentials) => {
       dispatch({type: 'SIGNUP_SUCCESS'});
     }).catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
+      //var errorCode = error.code;
       var errorMessage = error.message;
       dispatch({type: 'SIGNUP_ERROR', errorMessage})
     });

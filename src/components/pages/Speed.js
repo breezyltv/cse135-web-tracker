@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ZingGrid from "zinggrid";
+// import ZingGrid from "zinggrid";
+import { Redirect } from 'react-router-dom';
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
@@ -8,42 +9,37 @@ class Speed extends Component {
   // initialize variables
   constructor(props) {
     super(props);
-    this.state = {
-      dogs: [],
 
-    }
 
   }
-componentDidMount() {
-  const {auth, userData} = this.props;
 
-  // set state and reflect that change through attribute mutation
-  this.setState(() => {
-    return {
-      "dogs": [
-        {
-          "breed": "Dachshund",
-          "name": "Sousage"
-        },
-        {
-          "breed": "Corgi",
-          "name": "Plop"
-        },
-        {
-          "breed": "Pomeranian",
-          "name": "Floof"
-        },
-        { "breed": "Pomeranian", "name": "Koda"},
-        { "breed": "Cane Corso", "name": "Ziva"},
-        { "breed": "Dachshund", "name": "Rick"}
-      ]
-    }
-  });
+componentDidMount() {
+
 
 }
 
 
 render() {
+
+  const {auth, userData} = this.props;
+
+  if(!auth.uid){
+    return <Redirect to="/login" />
+  }
+
+  if(userData){
+    var email = userData.user_info.email;
+    //console.log(userData)
+    var performance_data = {};
+    Object.keys(userData).forEach((key) => {
+        if(key !== "static_data" && key !== 'user_info' && key !== 'id' && key !== "dynamic_data"){
+            performance_data[key] = userData[key];
+        }
+    });
+
+    console.log(performance_data);
+  }
+
   return (
     <div id="content-image">
         <div className="text-home"><h2>Performance Information !</h2></div>
@@ -53,7 +49,7 @@ render() {
         pager
         page-size="5"
         page-size-options="2,5,15"
-        caption="Hello Doggos" data={JSON.stringify(this.state.dogs)} loading></zing-grid>
+        caption={'Data from: ' + email} data={JSON.stringify(performance_data)} loading></zing-grid>
 
     </div>
   );

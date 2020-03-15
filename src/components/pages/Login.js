@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { login } from '../../actions/authActions';
-import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
 

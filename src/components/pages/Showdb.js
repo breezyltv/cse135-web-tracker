@@ -13,10 +13,9 @@ class Showdb extends Component {
   }
 
   showDB(){
-    const { trackerData, auth } = this.props;
+    const { trackerData } = this.props;
     const query = Cookies.get('tracker');
     console.log(trackerData[query].static_data);
-    var data = trackerData[query].static_data;
 
     document.getElementById('my-static-data').innerHTML
     = createTableStaticData(trackerData[query].static_data);
@@ -26,7 +25,7 @@ class Showdb extends Component {
     var per_data = trackerData[query];
     var performance = "";
     Object.keys(per_data).forEach((key) => {
-        if(key != "static_data" && key != 'user_info'){
+        if(key !== "static_data" && key !== 'user_info' && key !== "dynamic_data"){
             performance += createTablePerformanceData(per_data[key], key);
         }
     });
@@ -55,7 +54,6 @@ render() {
 const mapStateToProps = (state) =>{
   return {
     trackerData: state.firestore.data.data,
-    auth: state.firebase.auth
   };
 }
 
