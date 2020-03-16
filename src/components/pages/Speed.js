@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import ZingGrid from "zinggrid";
+import ZingGrid from "zinggrid";
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -10,13 +10,7 @@ class Speed extends Component {
   constructor(props) {
     super(props);
 
-
   }
-
-componentDidMount() {
-
-
-}
 
 
 render() {
@@ -37,7 +31,7 @@ render() {
         }
     });
 
-    console.log(performance_data);
+    //console.log(performance_data);
   }
 
   return (

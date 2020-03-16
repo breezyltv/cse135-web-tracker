@@ -40,21 +40,11 @@ export const updateData = (id, page_name, static_data, performance_data, dynamic
         page_name = 'index'
     }
 
-    //update for dynamic data
-    if(dynamic_data){
-      db.doc(id).collection('dynamic_data').doc(page_name).set(
-        dynamic_data
-      ).then(() => {
-        dispatch({ type: 'UPDATE_DYNAMIC_DATA_SUCCESS' });
-      }).catch(err => {
-        dispatch({ type: 'UPDATE_DYNAMIC_DATA_ERROR' }, err);
-      });
-    }
-
     //update for performance and static data
     db.doc(id).update({
         static_data: static_data,
         [page_name]: performance_data,
+        dynamic_data: dynamic_data,
     }).then(() => {
       dispatch({ type: 'UPDATE_DATA_SUCCESS' });
     }).catch(err => {

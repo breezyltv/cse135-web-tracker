@@ -25,7 +25,7 @@ class Browers extends Component {
   }
 
   componentDidMount(){
-    this.getChartData();
+    //this.getChartData();
     this.getStaticData();
   }
 
@@ -36,76 +36,64 @@ class Browers extends Component {
     // = createTableStaticData(staticData.static_data);
   }
 
-  getChartData(){
-
+  getChartData(lables_data, count_data){
     // Ajax calls here
-    this.setState({
-      chartData:{
-        labels: ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
+    var chartData = {
+        labels: lables_data,
         datasets:[
           {
-            label:'Population',
-            data:[
-              617594,
-              181045,
-              153060,
-              106519,
-              105162,
-              95072
-            ],
+            label:'Counts',
+            data:count_data,
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
               'rgba(54, 162, 235, 0.6)',
               'rgba(255, 206, 86, 0.6)',
               'rgba(75, 192, 192, 0.6)',
               'rgba(153, 102, 255, 0.6)',
-              'rgba(255, 159, 64, 0.6)',
-              'rgba(255, 99, 132, 0.6)'
             ]
           }
         ]
-
       }
-    });
+    return chartData;
   }
 
 
 render() {
 
-  const {auth, userData, staticData} = this.props;
+  const {auth, userData} = this.props;
 
   if(!auth.uid){
     return <Redirect to="/login" />
   }
 
-  var brower_info = {};
-  if(staticData){
-    brower_info = staticData.static_data;
-  }
 
-  var chartData = {};
   var labels = [];
   var data = [];
-  if(userData){
-    console.log(userData)
-    Object.keys(userData).forEach((key) => {
 
-        //labels.push(userData[key].dynamic_data.);
+  var brower_info = {};
+  if(userData){
+    brower_info = userData.static_data;
+
+    Object.keys(userData.dynamic_data).forEach((key) => {
+        labels.push(key.toUpperCase());
+        data.push(userData.dynamic_data[key])
     });
+
   }
 
-  //console.log(labels)
+
+
 
   return (
     <div id="content-image">
         <div className="text-home"><h2>Browers Information</h2></div>
 
         <Bar
-          data={this.state.chartData}
+          data={this.getChartData(labels, data)}
           options={{
             title:{
               display:this.props.displayTitle,
-              text:'Page: ',
+              text:'Counts Information ',
               fontSize:25,
               fontColor: '#333'
             },
@@ -127,8 +115,8 @@ const mapStateToProps = (state, props) =>{
   //console.log(state)
   return {
     auth: state.firebase.auth,
-    userData: state.firestore.ordered[`${props.uid}-dynamic_data`],
-    staticData: state.firestore.ordered.users && state.firestore.ordered.users[0]
+    userData: state.firestore.ordered.users && state.firestore.ordered.users[0],
+
   };
 }
 
@@ -136,7 +124,6 @@ const mapStateToProps = (state, props) =>{
 export default compose(
  connect(mapStateToProps),
  firestoreConnect((props) => [
-   { collection: 'users', doc: props.auth.uid,
-     subcollections: [{ collection: "dynamic_data" }], storeAs: `${props.uid}-dynamic_data` }
+   { collection: 'users', doc: props.auth.uid }
  ])
 ) (Browers);

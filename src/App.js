@@ -27,6 +27,8 @@ import Externals from './components/pages/Externals';
 import Showdb from './components/pages/Showdb';
 import Signup from './components/pages/Signup';
 import Account from './components/pages/Account';
+import Manager from './components/pages/Manager';
+
 import {getStaticData, getPerformanceData} from './tracker';
 
 class App extends Component {
@@ -80,9 +82,9 @@ class App extends Component {
         console.log('id to update: ' + id +" Login Status: " + logged);
 
         //set dynamic data to state
-        var page_name = performance['page_name'];
-        var dynamic_data;
-        dynamic_data = reactLocalStorage.getObject(page_name);
+
+        var dynamic_data = reactLocalStorage.getObject('dynamic_data');
+
         //console.log(dynamic_data)
         if(dynamic_data){
           this.setState({mouseover: dynamic_data.mouseover})
@@ -92,7 +94,6 @@ class App extends Component {
           this.setState({beforeunload: dynamic_data.beforeunload})
         }else {
           dynamic_data = {
-            page: page_name,
             click: this.state.click,
             mouseover: this.state.mouseover,
             keydown: this.state.keydown,
@@ -163,7 +164,6 @@ class App extends Component {
     reactLocalStorage.setObject('performance', performance);
 
     var dynamic_data = {
-      page: page_name,
       click: this.state.click,
       mouseover: this.state.mouseover,
       keydown: this.state.keydown,
@@ -171,7 +171,7 @@ class App extends Component {
       beforeunload: this.state.beforeunload
     };
 
-    reactLocalStorage.setObject(page_name, dynamic_data);
+    reactLocalStorage.setObject('dynamic_data', dynamic_data);
 
   }
 
@@ -215,6 +215,7 @@ class App extends Component {
             <Route exact path="/external" component={Externals}  />
             <Route exact path="/showdb" component={Showdb}  />
             <Route exact path="/account" component={Account}  />
+            <Route exact path="/manager" component={Manager}  />
             <Route exact path="/signup" component={Signup}  />
 
             <Route component={NotFoundPage} />

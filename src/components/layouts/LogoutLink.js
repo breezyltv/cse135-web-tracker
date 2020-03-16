@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
 
 function LogoutLink(props) {
-  const {auth, userData} = props;
+  const {userData} = props;
   var lastname;
   if(userData){
     lastname = userData.user_info.lastname;
@@ -19,7 +19,7 @@ function LogoutLink(props) {
           <li><a href="/external">Externals</a></li>
           <li><a href="/showdb">Show DB</a></li>
           <li className="current-user"><a href="/account">hi, {lastname}</a></li>
-          <li className="current-user"><a href="/account">Manager</a></li>
+          <li className="current-user"><a href="/manager">Manager</a></li>
           <li className="current-user"><a href="/logout">Logout</a></li>
         </ul>
     </div>

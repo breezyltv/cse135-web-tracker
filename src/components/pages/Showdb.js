@@ -19,6 +19,7 @@ class Showdb extends Component {
 
     document.getElementById('my-static-data').innerHTML
     = createTableStaticData(trackerData[query].static_data);
+
     document.getElementById('visitor_session').innerHTML
     = '<h2>Your session ID: ' + query + '</h2>';
 
