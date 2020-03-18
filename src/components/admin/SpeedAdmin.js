@@ -7,7 +7,7 @@ import { isAdmin } from '../../actions/authActions';
 
 
 function SpeedAdmin(props) {
-  const {auth, userData, isAdminStatus} = props;
+  const {auth, userData, sessionData, isAdminStatus} = props;
 
   if(!auth.uid){
     return <Redirect to="/login" />
@@ -49,6 +49,32 @@ function SpeedAdmin(props) {
                 })}
                 </tbody>
               </table>
+              <br />
+            <table>
+              <caption>Visitors Performance Information</caption>
+              <thead>
+                <tr>
+                  <th>Session ID</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+              { sessionData && sessionData.map(key => {
+                return(
+                  <tr key={key.id}>
+                    <th>{key.id}</th>
+                    <td>
+                    <Link to={'/reports/speed/session/' + key.id} key={key.id}>
+                      <button className="button btDetail" id="btDetail">
+                        <i className="fas fa-info-circle"></i>
+                      </button>
+                    </Link>
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+          </table>
     </div>
   );
 }

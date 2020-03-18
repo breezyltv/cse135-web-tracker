@@ -31,6 +31,8 @@ import Account from './components/pages/Account';
 import Manager from './components/admin/Manager';
 import SpeedDetail from './components/admin/SpeedDetail';
 import BrowserDetail from './components/admin/BrowserDetail';
+import BrowserSessionDetail from './components/admin/BrowserSessionDetail';
+import SpeedSessionDetail from './components/admin/SpeedSessionDetail';
 import {getStaticData, getPerformanceData, checkPathPage} from './tracker';
 
 class App extends Component {
@@ -218,8 +220,14 @@ class App extends Component {
             <Route exact path="/reports/browsers/"
                 render={(props) => <Browers {...props} uid={auth.uid} />}
             />
+          <Route exact path="/reports/speed/session/:id"
+              component={SpeedSessionDetail}
+            />
             <Route exact path="/reports/browsers/:id"
               component={BrowserDetail}
+            />
+          <Route exact path="/reports/browsers/session/:id"
+              component={BrowserSessionDetail}
             />
             <Route exact path={this.state.user ? "/logout" : "/login" }
               component={this.state.user ? Logout : Login} />

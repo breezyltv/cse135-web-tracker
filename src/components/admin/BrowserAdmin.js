@@ -7,7 +7,7 @@ import { isAdmin } from '../../actions/authActions';
 
 
 function BrowserAdmin(props) {
-  const {auth, userData, isAdminStatus} = props;
+  const {auth, userData, sessionData, isAdminStatus} = props;
 
   if(!auth.uid){
     return <Redirect to="/login" />
@@ -21,9 +21,9 @@ function BrowserAdmin(props) {
   }
   return (
     <div id="content-image">
-        <div className="text-home"><h2>Browers Information for Admin !</h2></div>
+        <div className="text-home"><h2>Browsers Information for Admin !</h2></div>
         <table>
-                <caption>Users Browers Information</caption>
+                <caption>Users' Browsers Information</caption>
                 <thead>
                   <tr>
                     <th>User ID</th>
@@ -49,6 +49,32 @@ function BrowserAdmin(props) {
                 })}
                 </tbody>
               </table>
+              <br />
+            <table>
+              <caption>Visitors' Browser Information</caption>
+              <thead>
+                <tr>
+                  <th>Session ID</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+              { sessionData && sessionData.map(key => {
+                return(
+                  <tr key={key.id}>
+                    <th>{key.id}</th>
+                    <td>
+                    <Link to={'/reports/browsers/session/' + key.id} key={key.id}>
+                      <button className="button btDetail" id="btDetail">
+                        <i className="fas fa-info-circle"></i>
+                      </button>
+                    </Link>
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+          </table>
     </div>
   );
 }

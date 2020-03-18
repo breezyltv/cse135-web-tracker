@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 - I decided to use react framework to do this project, because it's easy to do
-a single page application style. For homework 5, I have to spend more time to learn react-redux to pass data between components and also learn how to make an Admin by using Cloud Function. I think that use Reactjs, firebase, firestore and cloud funtions is convenient because you don't worry about CORS if you build traditional web by using endpoint, it may get more trouble. Also, Reactjs and firebase are built same language. It help the web run fast and firebase is asynchronous, so you don't worry about when update, create or delete data, it will automatically update the change immediately on your web <br />
+a single page application style. For homework 5, I have to spend more time to learn react-redux to pass data between components and also learn how to make an Admin by using Cloud Function. I think that use Reactjs, firebase, firestore and cloud funtions is convenient because you don't worry about CORS if you build traditional web by using endpoint, it may get more trouble. Also, Reactjs and firebase are built by the same Javascript language. It helps the web run faster and firebase is asynchronous, so you don't worry about when update, create or delete data, it will automatically update the change immediately on your web <br />
 - Link hosting:
   ```
   https://cse135-hw4-eb854.firebaseapp.com/

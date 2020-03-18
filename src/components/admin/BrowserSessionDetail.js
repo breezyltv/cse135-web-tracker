@@ -29,9 +29,9 @@ import {createTableStaticData} from '../../tracker';
  }
 
 
-function BrowerDetail(props) {
+function BrowserSessionDetail(props) {
 
- const {auth, userData, isAdminStatus} = props;
+ const {auth, sessionData, isAdminStatus} = props;
 
  if(!auth.uid){
    return <Redirect to="/login" />
@@ -42,33 +42,29 @@ function BrowerDetail(props) {
     return <Redirect to="/reports/browsers" />
   }else{
 
-
      var labels = [];
      var data = [];
 
      var brower_info = {};
      var username;
-     if(userData){
-       brower_info = userData.static_data;
-       username = userData.user_info.email;
-       if(userData.dynamic_data != null){
-         Object.keys(userData.dynamic_data).forEach((key) => {
+     if(sessionData){
+       brower_info = sessionData.static_data;
+       username = props.match.params.id;
+       if(sessionData.dynamic_data != null){
+         Object.keys(sessionData.dynamic_data).forEach((key) => {
              labels.push(key.toUpperCase());
-             data.push(userData.dynamic_data[key])
+             data.push(sessionData.dynamic_data[key])
          });
        }else{
          username = 'Data not found!';
        }
-     }
+    }
   }
-}
+ }
 
-
-// console.log("detail: " + props.uid)
-// console.log(getChartData(labels, data))
  return (
    <div id="content-image">
-       <div className="text-home"><h2>Browers Information</h2></div>
+       <div className="text-home"><h2>Session Information</h2></div>
        <Bar
          data={getChartData(labels, data)}
          options={{
@@ -94,15 +90,14 @@ function BrowerDetail(props) {
 
 const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
-  const data = state.firestore.data.users;
-  const user_data = data ? data[id] : null;
+  const data = state.firestore.data.data;
+  const session_data = data ? data[id] : null;
  return {
    auth: state.firebase.auth,
-   userData: user_data,
+   sessionData: session_data,
    isAdminStatus: state.auth.isAdminStatus
  };
 }
-
 const mapDispatchToProps = (dispatch) => {
   return {
     isAdmin:() => dispatch(isAdmin()),
@@ -112,6 +107,6 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
 connect(mapStateToProps, mapDispatchToProps),
 firestoreConnect((props) => [
-  { collection: 'users', doc: props.match.params.id }
+  { collection: 'data', doc: props.match.params.id }
 ])
-) (BrowerDetail);
+) (BrowserSessionDetail);
