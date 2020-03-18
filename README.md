@@ -27,7 +27,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
     Email: darthvader@galaxy.com
     password: qwerty
     ```
--   Use can sign up a new account, go to /signup. When you signed in, you only view your performance, browser data
+-   You can sign up a new account, go to /signup. When you signed in, you only view your performance, browser data
     and cannot see other user's information.
 -   When you logged in by using Admin account, you can see all users and click detail button to show each user data.
     Admin can gain or delete other normal users or remove session and cannot delete or edit other Admin, please go to /manager page.
