@@ -2,7 +2,7 @@
 const initState = {
     authError: null,
     authSuccess: null,
-    isAdmin: null
+    isAdminStatus: null
   }
 
   const authReducer = (state = initState, action) => {
@@ -93,13 +93,13 @@ const initState = {
           //console.log('Document successfully deleted!')
           return {
             ...state,
-            isAdmin: action.idTokenResult.claims.admin
+            isAdminStatus: action.idTokenResult.claims.admin
           }
         case 'IS_NOT_ADMIN':
           //console.log('Document successfully deleted!')
           return {
             ...state,
-            isAdmin: action.idTokenResult.claims.admin
+            isAdminStatus: action.idTokenResult.claims.admin
           }
       default:
         return state

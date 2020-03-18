@@ -7,7 +7,8 @@ import Footer from './components/layouts/Footer';
 // React Router Import
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {createDataNoUser, updateData} from './actions/trackerAction'
+import {createDataNoUser, updateData} from './actions/trackerAction';
+import { isAdmin } from './actions/authActions';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import Cookies from 'js-cookie';
 import browserHistory from './history';
@@ -28,8 +29,9 @@ import Showdb from './components/pages/Showdb';
 import Signup from './components/pages/Signup';
 import Account from './components/pages/Account';
 import Manager from './components/admin/Manager';
-
-import {getStaticData, getPerformanceData} from './tracker';
+import SpeedDetail from './components/admin/SpeedDetail';
+import BrowserDetail from './components/admin/BrowserDetail';
+import {getStaticData, getPerformanceData, checkPathPage} from './tracker';
 
 class App extends Component {
   constructor(props){
@@ -102,15 +104,18 @@ class App extends Component {
           };
         }
 
-        //Call to uodate
-        this.props.updateData(
-          id,
-          performance['page_name'],
-          performance['static_data'],
-          performance['performance_data'],
-          dynamic_data,
-          logged
-        );
+        //avoid page like /reports/browsers/VmWbCc9HrijSAIvsSjd7
+        if(checkPathPage(performance['page_name']) < 1){
+          //Call to uodate
+          this.props.updateData(
+            id,
+            performance['page_name'],
+            performance['static_data'],
+            performance['performance_data'],
+            dynamic_data,
+            logged
+          );
+        }
       }
     }
 
@@ -175,18 +180,16 @@ class App extends Component {
 
   }
 
-
   handleScroll(e) {
     this.setState({scroll: this.state.scroll+1});
     //console.log(e);
   }
 
-
-
   authListener(){
     firebaseAuth.auth().onAuthStateChanged((user) => {
       if(user){
         this.setState({user});
+        this.props.isAdmin();
         console.log("user status: logged");
       }else{
         this.setState({user: null});
@@ -197,7 +200,8 @@ class App extends Component {
   }
 
   render() {
-    const { auth } = this.props
+    const { auth, isAdminStatus } = this.props;
+
     return (
       <div>
           <Header uid={auth.uid} />
@@ -205,17 +209,29 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={this.state.user ? Dashboard : Home}  />
             <Route exact path="/dashboard" component={this.state.user ? Dashboard : Login}  />
-            <Route exact path="/reports/speed" component={this.state.user ? Speed : Login}  />
-            <Route exact path="/reports/browsers"  component={this.state.user ? Browers : Login}  />
-
-            <Route exact path={this.state.user ? "/logout" : "/login" } component={this.state.user ? Logout : Login} />
+            <Route exact path="/reports/speed/"
+              render={(props) => <Speed {...props} uid={auth.uid} />}
+            />
+            <Route exact path="/reports/speed/:id"
+              component={SpeedDetail}
+            />
+            <Route exact path="/reports/browsers/"
+                render={(props) => <Browers {...props} uid={auth.uid} />}
+            />
+            <Route exact path="/reports/browsers/:id"
+              component={BrowserDetail}
+            />
+            <Route exact path={this.state.user ? "/logout" : "/login" }
+              component={this.state.user ? Logout : Login} />
             <Route exact path="/images" component={Images}  />
             <Route exact path="/form" component={Form}  />
             <Route exact path="/table" component={Table_and_lists}  />
             <Route exact path="/external" component={Externals}  />
             <Route exact path="/showdb" component={Showdb}  />
             <Route exact path="/account" component={Account}  />
-            <Route exact path="/manager" component={Manager}  />
+            <Route exact path="/manager"
+                render={(props) => <Manager {...props} adminRole={isAdminStatus} />}
+            />
             <Route exact path="/signup" component={Signup}  />
 
             <Route component={NotFoundPage} />
@@ -229,7 +245,8 @@ class App extends Component {
 
 const mapStateToProps = (state) =>{
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    isAdminStatus: state.auth.isAdminStatus
   };
 }
 
@@ -237,8 +254,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createDataNoUser: (data) => dispatch(createDataNoUser(data)),
     updateData: (id, page_name, static_data, performance_data, dynamic_data, logged) => dispatch(
-      updateData(id, page_name, static_data, performance_data, dynamic_data, logged)
-    )
+    updateData(id, page_name, static_data, performance_data, dynamic_data, logged)),
+    isAdmin:() => dispatch(isAdmin())
+
   }
 }
 

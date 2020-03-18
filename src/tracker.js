@@ -83,3 +83,12 @@ export const createTablePerformanceData = (data, table_name) =>{
     }
     return table;
 }
+
+export const checkPathPage = (page_name) => {
+  var count = 0;
+  for (var i = 0; i < page_name.length; i++) {
+    if(page_name[i] === '/')
+      count += 1;
+  }
+  return count;
+}

@@ -26,15 +26,18 @@ deleteSession(id){
 }
 
 render() {
-  const { auth, userData, sessionData, authSuccess, authError, isAdmin } = this.props;
+  const { auth, userData, sessionData, authSuccess, authError } = this.props;
 
   if(!auth.uid){
     return <Redirect to="/login" />
   }else {
     //check that the user is admin
-    this.props.isAdmin();
-    if(!isAdmin){
-      browserHistory.push('/dashboard');
+    var isAdminStatus = this.props.adminRole;
+    //console.log("adminRole: " + isAdminStatus)
+    if(isAdminStatus !== null){
+      if(!isAdminStatus){
+        return <Redirect to="/dashboard" />
+      }
     }
 
   }
@@ -226,7 +229,6 @@ const mapStateToProps = (state, props) =>{
     sessionData: state.firestore.ordered.data,
     authError: state.auth.authError,
     authSuccess: state.auth.authSuccess,
-    isAdmin: state.auth.isAdmin
   };
 }
 
@@ -234,7 +236,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addAdminRole: (email, id) => dispatch(addAdminRole(email, id)),
     deleteSession: (id) => dispatch(deleteSession(id)),
-    isAdmin:() => dispatch(isAdmin()),
     deleteUser: (email) => dispatch(deleteUser(email))
   }
 }
