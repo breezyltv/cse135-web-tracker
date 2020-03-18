@@ -39,7 +39,7 @@ function BrowserAdmin(props) {
                       <td>{key.user_info.firstname.toUpperCase() + ' ' + key.user_info.lastname.toUpperCase()}</td>
                       <td>
                       <Link to={'/reports/browsers/' + key.id} key={key.id}>
-                        <button className="button btDelete" id="btDetail">
+                        <button className="button btDetail" id="btDetail">
                           <i className="fas fa-info-circle"></i>
                         </button>
                       </Link>

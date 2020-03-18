@@ -1,9 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-I decided to use react framework to do this project, because it's easy to do
-a single page application style. <br />
-Link hosting:
-https://cse135-hw4-eb854.firebaseapp.com/
+- I decided to use react framework to do this project, because it's easy to do
+a single page application style. For homework 5, I have to spend more time to learn react-redux to pass data between components and also learn how to make an Admin by using Cloud Function. I think that use Reactjs, firebase, firestore and cloud funtions is convenient because you don't worry about CORS if you build traditional web by using endpoint, it may get more trouble. Also, Reactjs and firebase are built same language. It help the web run fast and firebase is asynchronous, so you don't worry about when update, create or delete data, it will automatically update the change immediately on your web <br />
+- Link hosting:
+  ```
+  https://cse135-hw4-eb854.firebaseapp.com/
+  ```
 
 If you want to run this project locally, then
 
@@ -14,41 +16,24 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
--   I use firebase authentication to sign in a user with an email address and password.
-    First of all, I added firebase into my react app.<br />
-    In the Login.js at src/components/pages/Login.js<br />
-    it's basic that pass email and password value into signInWithEmailAndPassword function below:<br />
-
-    ```
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-    });```
-
 -   To login, please go to https://cse135-hw4-eb854.firebaseapp.com/login and enter email and password below<br />
+    Admin account:
     ```
     Email: vtl017@ucsd.edu
     password: qwerty
     ```
+    Normal account:
+    ```
+    Email: darthvader@galaxy.com
+    password: qwerty
+    ```
+-   Use can sign up a new account, go to /signup. When you signed in, you only view your performance, browser data
+    and cannot see other user's information.
+-   When you logged in by using Admin account, you can see all users and click detail button to show each user data.
+    Admin can gain or delete other normal users or remove session and cannot delete or edit other Admin, please go to /manager page.
 
 -   Diagram that shows how your PoC examples work together including their routes:<br />
     It included in the folder that named as diagram_poc.jpg<br />
-    https://github.com/breezyltv/cse135-hw4/blob/master/diagram_poc.jpg
-
--   Discussion of the grid library you used:<br />
-    I use ZingGrid js to make the grid, the reason that why I use it because,
-    It's work on all frameworks and it runs perfectly on route /reports/speed.
-    The gird has some great features like search, sort and pagination.
-
--   Discussion of the chart library you used:<br />
-    I use Chartjs from https://www.chartjs.org/, it has a version that is react-chartjs-2,
-     so it will work on my react app, you can see the demonstration of chart at /reports/browsers<br />
-    This chart library have many chart style like column, pie, line.
-    I can edit the color chart, title or enable the tooltip.
 
 -   Diagram and wireframes to implement for final project:<br />
-    Two PDF named as architecture_hw4.pdf and wireframe.pdf in this folder<br />
-    https://github.com/breezyltv/cse135-hw4/blob/master/architecture_hw4.pdf <br />
-    https://github.com/breezyltv/cse135-hw4/blob/master/wireframe.pdf
+    Two PDF named as architecture_hw5.pdf and wireframe.pdf in this folder<br />
