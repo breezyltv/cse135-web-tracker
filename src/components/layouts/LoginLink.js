@@ -12,7 +12,7 @@ function LoginLink() {
     				<li><a href="/external">Externals</a></li>
     				<li><a href="/showdb">Show DB</a></li>
             <li><a href="/signup">SignUp</a></li>
-            <li id="current-user"><a href="/login">Login</a></li>
+            <li id="current-user"><a href="/login"><i className="fas fa-sign-in-alt"></i></a></li>
     			</ul>
     	</div>
 

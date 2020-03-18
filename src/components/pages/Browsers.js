@@ -1,5 +1,5 @@
  import React, { Component } from 'react';
-import {Bar, Line, Pie} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -25,15 +25,7 @@ class Browers extends Component {
   }
 
   componentDidMount(){
-    //this.getChartData();
-    this.getStaticData();
-  }
 
-  getStaticData(){
-    const { staticData} = this.props;
-    //console.log(staticData)
-    // document.getElementById('my-static-data').innerHTML
-    // = createTableStaticData(staticData.static_data);
   }
 
   getChartData(lables_data, count_data){

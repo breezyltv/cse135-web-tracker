@@ -27,7 +27,7 @@ import Externals from './components/pages/Externals';
 import Showdb from './components/pages/Showdb';
 import Signup from './components/pages/Signup';
 import Account from './components/pages/Account';
-import Manager from './components/pages/Manager';
+import Manager from './components/admin/Manager';
 
 import {getStaticData, getPerformanceData} from './tracker';
 
@@ -103,14 +103,14 @@ class App extends Component {
         }
 
         //Call to uodate
-        // this.props.updateData(
-        //   id,
-        //   performance['page_name'],
-        //   performance['static_data'],
-        //   performance['performance_data'],
-        //   dynamic_data,
-        //   logged
-        // );
+        this.props.updateData(
+          id,
+          performance['page_name'],
+          performance['static_data'],
+          performance['performance_data'],
+          dynamic_data,
+          logged
+        );
       }
     }
 
@@ -187,7 +187,6 @@ class App extends Component {
     firebaseAuth.auth().onAuthStateChanged((user) => {
       if(user){
         this.setState({user});
-        //this.props.history.push("/dashboard");
         console.log("user status: logged");
       }else{
         this.setState({user: null});
@@ -198,9 +197,10 @@ class App extends Component {
   }
 
   render() {
+    const { auth } = this.props
     return (
       <div>
-          <Header />
+          <Header uid={auth.uid} />
 
           <Switch>
             <Route exact path="/" component={this.state.user ? Dashboard : Home}  />

@@ -1,12 +1,31 @@
 import React from 'react';
 import LogoutLink from './LogoutLink';
 import LoginLink from './LoginLink';
-import { connect } from 'react-redux';
+import AdminLink from '../admin/AdminLink';
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase';
 
 function Header(props) {
 
   const {auth} = props;
-  const userNavLink = auth.uid ? <LogoutLink /> : <LoginLink />
+  const {userData} = props;
+  var lastname;
+  var userNavLink;
+  if(auth.uid){
+    if(userData){
+      lastname = userData.user_info.lastname;
+      var admin = userData.user_info.role;
+      if(admin === 'admin'){
+        userNavLink = <AdminLink lastname={lastname} />
+      }else {
+        userNavLink = <LogoutLink lastname={lastname} />
+      }
+    }
+    console.log("Role is: " + admin)
+  }else{
+    userNavLink = <LoginLink />
+  }
 
   return (
     <div id="header-idx">
@@ -23,10 +42,16 @@ function Header(props) {
   );
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state, props) =>{
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    userData: state.firestore.data.users && state.firestore.data.users[props.uid]
   };
 }
 
-export default connect(mapStateToProps)(Header);
+export default compose(
+ connect(mapStateToProps),
+ firestoreConnect((props) => [
+   { collection: 'users', doc: props.uid }
+ ])
+) (Header);

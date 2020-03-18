@@ -1,6 +1,7 @@
 import React from 'react';
-function LogoutLink(props) {
 
+
+function AdminLink(props) {
   return (
     <div className="nav-home">
         <ul className="menu">
@@ -11,6 +12,7 @@ function LogoutLink(props) {
           <li><a href="/external">Externals</a></li>
           <li><a href="/showdb">Show DB</a></li>
           <li className="current-user"><a href="/account">hi, {props.lastname}</a></li>
+          <li className="current-user"><a href="/manager"><i className="fas fa-tasks"></i></a></li>
           <li className="current-user"><a href="/logout"><i className="fas fa-sign-out-alt"></i></a></li>
         </ul>
     </div>
@@ -20,4 +22,5 @@ function LogoutLink(props) {
 
 
 
-export default LogoutLink;
+
+export default AdminLink;

@@ -287,8 +287,8 @@ code, output, pre{
 
 
 .home-dash {
-	width: 15px;
-	height: 2px;
+	width: 50px;
+	height: 4px;
 	margin: 10px auto 10px auto;
 	background: #f5636c;
 }
@@ -378,6 +378,10 @@ label, legend {
 	margin: 2rem auto;
 	background-color: #F8EFBA;
   }
+
+	table button{
+		margin-left: 20px !important;
+	}
 
   thead th {
 	color: #565656;
@@ -795,7 +799,17 @@ p {
 	margin-top: 10px;
 }
 
-#alert-box span{
+#alert-success-box{
+	min-height: 35px;
+	padding: 10px;
+	width: 100%;
+	background-color: #0abde3;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#alert-box span, #alert-success-box span{
 	font-size:10pt;
 	color: #f2f2f2;
 	display: inline-block;
@@ -837,6 +851,59 @@ p {
 	font-family: open sans, sans-serif;
 	font-size: 13pt;
 	color: #82ccdd
+}
+
+.modal {
+  font-size: 12px;
+	background-color: #f5f6fa;
+}
+
+.modal button{
+		margin-left: 20px;
+}
+
+
+#btMakeAdmin, #btDeleteUser, #btDeleteSession, .btDelete {
+	background-color: #ff4757;
+	color: #f5f6fa;
+}
+
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+	text-align: center;
+
+}
+.modal > .content span{
+	font-family: open sans, sans-serif;
+	font-size: 15pt;
+	color: #2c3e50;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
 }
 
 zing-grid {

@@ -41,12 +41,12 @@ render() {
         { authError ? <div id="alert-box"><span>{authError}</span></div> : null}
 
         <div className="form__field">
-          <label htmlFor="login__username"><svg className="icon"></svg><span className="hidden">Username</span></label>
+          <label htmlFor="login__username"><i className="fas fa-user"></i><span className="hidden">Username</span></label>
           <input id="login__username" value={this.state.email} onChange={this.handleChange} type="text" name="email" className="form__input" placeholder="email" required></input>
         </div>
 
         <div className="form__field">
-          <label htmlFor="login__password"><svg className="icon"></svg><span className="hidden">Password</span></label>
+          <label htmlFor="login__password"><i className="fas fa-lock"></i><span className="hidden">Password</span></label>
           <input id="login__password" value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form__input" placeholder="Password" required></input>
         </div>
 
@@ -55,7 +55,6 @@ render() {
         </div>
 
       </div>
-
       <p className="text--center">Not a member? <a href="/signup">Sign up now</a> <svg className="icon"></svg></p>
 
     </div>
