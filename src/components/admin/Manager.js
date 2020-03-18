@@ -121,7 +121,7 @@ render() {
                                 </a>
                                 <div className="header"> User: {key.user_info.email} </div>
                                 <div className="content">
-                                  <span>Are you sure to delete this user?</span>
+                                  <span>Are you sure to delete this user?</span><br/>
                                   <span>Firstname: {key.user_info.firstname.toUpperCase()}</span><br/>
                                   <span>Lastname: {key.user_info.lastname.toUpperCase()}</span>
                                 </div>

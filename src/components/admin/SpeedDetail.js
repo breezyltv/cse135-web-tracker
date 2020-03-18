@@ -30,8 +30,6 @@ function SpeedDetail(props) {
     }
   }
 
-
-
     //console.log(performance_data);
   }
 

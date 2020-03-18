@@ -867,6 +867,10 @@ p {
 	background-color: #ff4757;
 	color: #f5f6fa;
 }
+.btDetail{
+	background-color: #78e08f;
+	color: #f5f6fa;
+}
 
 .modal > .header {
   width: 100%;
