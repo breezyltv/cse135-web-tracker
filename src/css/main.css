@@ -387,11 +387,16 @@ label, legend {
 	color: #565656;
 	border-bottom: 5px solid #ddd;
 	border-right: 1px solid #ddd;
+	font-size: 12pt;
   }
 
   thead th:last-child {
 	border-right: 0;
   }
+
+	tbody {
+		font-size: 12pt;
+	}
 
   tbody th {
 	border-right: 1px solid #ddd;
