@@ -54,11 +54,11 @@ export const signUp = (credentials) => {
     }).then(() =>{
       dispatch({type: 'SIGNUP_SUCCESS'});
       browserHistory.push('/dashboard');
-    }).catch(function(error) {
+    }).catch(function(err) {
       // Handle Errors here.
       //var errorCode = error.code;
-      var errorMessage = error.message;
-      dispatch({type: 'SIGNUP_ERROR', errorMessage})
+      //var errorMessage = error.message;
+      dispatch({type: 'SIGNUP_ERROR', err})
     });
   }
 }
