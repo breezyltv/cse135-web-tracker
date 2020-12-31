@@ -1,8 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+- Web tracker is a simple project that can track users' activities such as counting number of clicks, number of loading, keydown and getting browser's info. It's managed by admin and can see all of user's info.
 - I decided to use react framework to do this project, because it's easy to do
   a single page application style. For homework 5, I have to spend more time to learn react-redux to pass data between components and also learn how to make an Admin by using Cloud Function.
-- I think that use Reactjs, firebase, firestore and cloud funtions is convenient because they are built by the same Javascript language. It helps web developer that builds website faster, run faster and firebase supported real time database, so you don't worry about when update, create or delete data, it will automatically update the change immediately on your web. Asynchronous is a feature in javascript, we have to deal with it by using callback to solve or we can use async/await function <br />
+- I think that use Reactjs, firebase, firestore and cloud funtions are convenient because they are built by the same Javascript language. It helps web developer that builds website faster, run faster and firebase supported real time database, so you don't worry about when update, create or delete data, it will automatically update the change immediately on your web. Asynchronous is a feature in javascript, we have to deal with it by using callback to solve or we can use Promise and async/await <br />
 - Link hosting:
   ```
   https://cse135-hw4-eb854.firebaseapp.com/
